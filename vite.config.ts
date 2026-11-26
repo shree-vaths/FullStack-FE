@@ -3,16 +3,16 @@ import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 
 /**
- * The client always calls relative URLs (/api/...). Something in front of it
- * forwards them to the API, so the browser only ever talks to one origin and
- * the API needs no CORS setup:
- *   - production (Vercel): the rewrite in vercel.json -> Render
- *   - `npm run dev`:       this proxy -> Render by default
+ * How API calls reach the server:
+ *   - production build: the browser calls the Render API directly
+ *     (VITE_API_BASE_URL in .env.production; the API allows it via CORS).
+ *   - `npm run dev`: code calls relative /api/... and this proxy forwards it,
+ *     to Render by default, so dev needs no CORS.
  *
  * Point dev at a local server instead with:
  *   API_URL=http://localhost:3001 npm run dev
  *
- * KEEP IN SYNC: the Render URL is also in vercel.json (JSON can't import it).
+ * KEEP IN SYNC: the Render URL is also in .env.production.
  */
 const RENDER_API = 'https://fullstack-be-ewy9.onrender.com';
 const API_TARGET = process.env.API_URL ?? RENDER_API;

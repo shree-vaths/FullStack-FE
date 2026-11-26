@@ -8,6 +8,8 @@ coverage/
 # Secrets / local env
 .env
 .env.*
+# Exception: holds only the public API URL used by production builds.
+!.env.production
 
 # Logs, OS / editor files
 *.log

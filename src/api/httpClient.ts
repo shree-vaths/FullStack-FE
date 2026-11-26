@@ -1,4 +1,5 @@
 import type { ApiError } from '../types';
+import { apiUrl } from './apiUrl';
 
 /**
  * The single place the app talks HTTP. Components and hooks never call
@@ -63,7 +64,9 @@ export function isAbortError(error: unknown): boolean {
 
 async function send(path: string, signal?: AbortSignal): Promise<Response> {
   try {
-    return await fetch(path, { signal, headers: { Accept: 'application/json' } });
+    // apiUrl() prefixes the API origin in production builds (cross-origin + CORS)
+    // and leaves the path relative in dev/tests (Vite proxy).
+    return await fetch(apiUrl(path), { signal, headers: { Accept: 'application/json' } });
   } catch (error) {
     if (isAbortError(error)) throw error;
     // fetch only rejects when no HTTP response arrived (offline, DNS, server down).
