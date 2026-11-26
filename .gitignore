@@ -1,0 +1,16 @@
+# Dependencies (restore with `npm install`)
+node_modules/
+
+# Build / test output (Vercel builds dist/ itself)
+dist/
+coverage/
+
+# Secrets / local env
+.env
+.env.*
+
+# Logs, OS / editor files
+*.log
+.DS_Store
+.vscode/
+.idea/
